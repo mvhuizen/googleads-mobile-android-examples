@@ -44,7 +44,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 private const val TAG = "MainActivity"
 const val AD_MANAGER_AD_UNIT_ID = "/6499/example/native"
-const val SIMPLE_TEMPLATE_ID = "10104090"
+const val SIMPLE_TEMPLATE_ID = "10063170"
 
 /** A simple activity class that displays native ad formats. */
 class MainActivity : AppCompatActivity() {
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
       if (googleMobileAdsConsentManager.canRequestAds) {
         refreshAd(
           mainActivityBinding.nativeadsCheckbox.isChecked,
-          mainActivityBinding.customtemplateCheckbox.isChecked
+          mainActivityBinding.customtemplateCheckbox.isChecked,
         )
       }
     }
@@ -219,7 +219,7 @@ class MainActivity : AppCompatActivity() {
         String.format(
           Locale.getDefault(),
           "Video status: Ad contains a %.2f:1 video asset.",
-          mediaContent.aspectRatio
+          mediaContent.aspectRatio,
         )
       // Create a new VideoLifecycleCallbacks object and pass it to the VideoController. The
       // VideoController will call methods on this object when events occur in the video
@@ -245,7 +245,6 @@ class MainActivity : AppCompatActivity() {
    * particular "simple" custom native ad format.
    *
    * @param nativeCustomFormatAd the object containing the ad's assets
-   * @param adView the view to be populated
    */
   private fun populateSimpleTemplateAdView(nativeCustomFormatAd: NativeCustomFormatAd) {
     customTemplateBinding.simplecustomHeadline.text = nativeCustomFormatAd.getText("Headline")
@@ -267,6 +266,14 @@ class MainActivity : AppCompatActivity() {
             super.onVideoEnd()
           }
         }
+    }
+
+    // Render the Ad Choices icon and click listener.
+    val adChoicesKey = NativeAdAssetNames.ASSET_ADCHOICES_CONTAINER_VIEW
+    val adChoiceAsset = nativeCustomFormatAd.getImage(adChoicesKey)
+    customTemplateBinding.simplecustomAdchoice.setImageDrawable(choice?.drawable)
+    customTemplateBinding.simplecustomAdchoice.setOnClickListener {
+      nativeCustomFormatAd.performClick(adChoicesKey)
     }
 
     val mediaContent = nativeCustomFormatAd.mediaContent
@@ -305,7 +312,7 @@ class MainActivity : AppCompatActivity() {
       Toast.makeText(
           this,
           "At least one ad format must be checked to request an ad.",
-          Toast.LENGTH_SHORT
+          Toast.LENGTH_SHORT,
         )
         .show()
       return
@@ -363,10 +370,10 @@ class MainActivity : AppCompatActivity() {
           Toast.makeText(
               this@MainActivity,
               "A custom click has occurred in the simple template",
-              Toast.LENGTH_SHORT
+              Toast.LENGTH_SHORT,
             )
             .show()
-        }
+        },
       )
     }
 
@@ -390,7 +397,7 @@ class MainActivity : AppCompatActivity() {
               Toast.makeText(
                   this@MainActivity,
                   "Failed to load native ad with error $error",
-                  Toast.LENGTH_SHORT
+                  Toast.LENGTH_SHORT,
                 )
                 .show()
             }
@@ -413,7 +420,7 @@ class MainActivity : AppCompatActivity() {
       // Load an ad.
       refreshAd(
         mainActivityBinding.nativeadsCheckbox.isChecked,
-        mainActivityBinding.customtemplateCheckbox.isChecked
+        mainActivityBinding.customtemplateCheckbox.isChecked,
       )
     }
   }

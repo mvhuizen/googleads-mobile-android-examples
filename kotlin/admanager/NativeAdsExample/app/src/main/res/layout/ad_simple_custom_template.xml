@@ -6,13 +6,26 @@
     android:orientation="vertical"
     android:layout_margin="8dp">
 
-    <TextView
-        android:id="@+id/simplecustom_headline"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/simplecustom_headline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <ImageView
+            android:id="@+id/simplecustom_adchoice"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_gravity="end"
+            android:adjustViewBounds="true"
+        android:contentDescription="@string/ad_choices" />
+
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/simplecustom_media_placeholder"
