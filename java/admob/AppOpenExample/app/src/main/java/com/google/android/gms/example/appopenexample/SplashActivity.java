@@ -42,6 +42,8 @@ public class SplashActivity extends AppCompatActivity {
 
   private long secondsRemaining;
 
+  private boolean isConsentError = Boolean.FALSE;
+  
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -56,6 +58,7 @@ public class SplashActivity extends AppCompatActivity {
         this,
         consentError -> {
           if (consentError != null) {
+            isConsentError=true;
             // Consent not obtained in current session.
             Log.w(
                 LOG_TAG,
@@ -111,7 +114,7 @@ public class SplashActivity extends AppCompatActivity {
                         // Check if the consent form is currently on screen before moving to the
                         // main
                         // activity.
-                        if (googleMobileAdsConsentManager.canRequestAds()) {
+                        if (googleMobileAdsConsentManager.canRequestAds()||(isConsentError)) {
                           startMainActivity();
                         }
                       }
